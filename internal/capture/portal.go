@@ -92,6 +92,7 @@ func RequestPortalStream(ctx context.Context, configDir string) (*PortalStream, 
 		"handle_token": dbus.MakeVariant(tok2),
 		"types":        dbus.MakeVariant(uint32(1)), // 1 = MONITOR
 		"multiple":     dbus.MakeVariant(false),
+		"cursor_mode":  dbus.MakeVariant(uint32(2)), // 2 = EMBEDDED
 		"persist_mode": dbus.MakeVariant(uint32(0)), // 0 = nao persistir
 	}
 	if restoreToken != "" {
