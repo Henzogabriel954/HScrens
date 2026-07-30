@@ -36,7 +36,7 @@ func StartPipeWireEncode(ctx context.Context, videoPort int, pipewireFD int, nod
 			"x264enc tune=zerolatency speed-preset=superfast key-int-max=30 bitrate=%d sliced-threads=false ! "+
 			"h264parse config-interval=1 ! "+
 			"video/x-h264,stream-format=avc,alignment=au ! "+
-			"tcpserversink host=127.0.0.1 port=%d sync=false async=false buffers-max=1",
+			"tcpserversink host=127.0.0.1 port=%d sync=false async=false",
 		nodeID, bitrate, videoPort,
 	)
 
@@ -60,7 +60,7 @@ func StartDiagPipeWireEncode(ctx context.Context, videoPort int, pipewireFD int,
 			"identity name=probe_enc silent=false ! "+
 			"h264parse config-interval=1 ! "+
 			"video/x-h264,stream-format=avc,alignment=au ! "+
-			"tcpserversink host=127.0.0.1 port=%d sync=false async=false buffers-max=1",
+			"tcpserversink host=127.0.0.1 port=%d sync=false async=false",
 		nodeID, bitrate, videoPort,
 	)
 
