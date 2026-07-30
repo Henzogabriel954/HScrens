@@ -143,14 +143,30 @@ class MainActivity : ComponentActivity(), SurfaceHolder.Callback {
                         lastLogTime = now
                     }
 
+                    var spsChanged = false
+                    var ppsChanged = false
+
                     when (type) {
-                        7 -> { sps = nal; android.util.Log.i("HScrens", "✅ SPS (type 7) recebido: ${nal.size} bytes") }
-                        8 -> { pps = nal; android.util.Log.i("HScrens", "✅ PPS (type 8) recebido: ${nal.size} bytes") }
+                        7 -> { 
+                            if (sps == null || !nal.contentEquals(sps)) { sps = nal; spsChanged = true }
+                            android.util.Log.i("HScrens", "✅ SPS (type 7) recebido: ${nal.size} bytes") 
+                        }
+                        8 -> { 
+                            if (pps == null || !nal.contentEquals(pps)) { pps = nal; ppsChanged = true }
+                            android.util.Log.i("HScrens", "✅ PPS (type 8) recebido: ${nal.size} bytes") 
+                        }
                         5 -> { android.util.Log.d("HScrens", "🔑 Keyframe IDR (type 5) recebido: ${nal.size} bytes") }
                         1 -> { android.util.Log.v("HScrens", "🎞️ P-frame (type 1) recebido: ${nal.size} bytes") }
                     }
 
                     if (sps != null && pps != null) {
+                        if (videoDecoder != null && (spsChanged || ppsChanged)) {
+                            android.util.Log.w("HScrens", "🔄 SPS/PPS mudou (Resolução/Orientação)! Reiniciando decoder...")
+                            videoDecoder?.stop()
+                            videoDecoder = null
+                            hasReceivedFirstKeyframe = false
+                        }
+
                         if (videoDecoder == null) {
                             val s = activeSurface ?: return@readNalUnits
                             val metrics = resources.displayMetrics

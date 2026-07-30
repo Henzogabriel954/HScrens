@@ -29,6 +29,7 @@ func StartTestEncode(ctx context.Context, videoPort int, testVideoPath string, b
 func StartPipeWireEncode(ctx context.Context, videoPort int, pipewireFD int, nodeID uint32, bitrate int) *exec.Cmd {
 	pipeline := fmt.Sprintf(
 		"gst-launch-1.0 pipewiresrc fd=3 path=%d ! "+
+			"videorate ! video/x-raw,framerate=30/1 ! "+
 			"videoconvert ! video/x-raw,format=I420 ! "+
 			"x264enc tune=zerolatency speed-preset=ultrafast key-int-max=30 bitrate=%d sliced-threads=false ! "+
 			"h264parse config-interval=1 ! "+
