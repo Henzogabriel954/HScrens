@@ -175,14 +175,14 @@ func main() {
 							var cmd *exec.Cmd
 							switch diagMode {
 							case "probes":
-								cmd = encode.StartDiagPipeWireEncode(ctx, videoPort, activePortalStream.PipewireFD, activePortalStream.NodeID, 12000)
+								cmd = encode.StartDiagPipeWireEncode(ctx, videoPort, activePortalStream.PipewireFD, activePortalStream.NodeID, 8000)
 								log.Println("🔬 DIAGNÓSTICO: probes de timestamp ativas (output no stdout)")
 								log.Println("   → probe_src = após pipewiresrc | probe_enc = após x264enc")
 							case "visual":
-								cmd = encode.StartVisualPipeWireEncode(ctx, activePortalStream.PipewireFD, activePortalStream.NodeID, 12000)
+								cmd = encode.StartVisualPipeWireEncode(ctx, activePortalStream.PipewireFD, activePortalStream.NodeID, 8000)
 								log.Println("🖥️  VISUAL: encode+decode local — janela vai abrir no PC")
 							default:
-								cmd = encode.StartPipeWireEncode(ctx, videoPort, activePortalStream.PipewireFD, activePortalStream.NodeID, 12000)
+								cmd = encode.StartPipeWireEncode(ctx, videoPort, activePortalStream.PipewireFD, activePortalStream.NodeID, 8000)
 							}
 							cmd.Stdout = os.Stdout
 							cmd.Stderr = os.Stderr

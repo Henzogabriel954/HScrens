@@ -33,7 +33,7 @@ func StartPipeWireEncode(ctx context.Context, videoPort int, pipewireFD int, nod
 			"queue max-size-buffers=1 leaky=downstream ! "+
 			"videorate drop-only=true ! video/x-raw,max-framerate=30/1 ! "+
 			"videoconvert ! video/x-raw,format=I420 ! "+
-			"x264enc tune=zerolatency speed-preset=ultrafast key-int-max=30 bitrate=%d sliced-threads=false ! "+
+			"x264enc tune=zerolatency speed-preset=superfast key-int-max=30 bitrate=%d sliced-threads=false ! "+
 			"h264parse config-interval=1 ! "+
 			"video/x-h264,stream-format=avc,alignment=au ! "+
 			"tcpserversink host=127.0.0.1 port=%d sync=false async=false",
@@ -56,7 +56,7 @@ func StartDiagPipeWireEncode(ctx context.Context, videoPort int, pipewireFD int,
 			"queue max-size-buffers=1 leaky=downstream ! "+
 			"videorate drop-only=true ! video/x-raw,max-framerate=30/1 ! "+
 			"videoconvert ! video/x-raw,format=I420 ! "+
-			"x264enc tune=zerolatency speed-preset=ultrafast key-int-max=30 bitrate=%d sliced-threads=false ! "+
+			"x264enc tune=zerolatency speed-preset=superfast key-int-max=30 bitrate=%d sliced-threads=false ! "+
 			"identity name=probe_enc silent=false ! "+
 			"h264parse config-interval=1 ! "+
 			"video/x-h264,stream-format=avc,alignment=au ! "+
@@ -79,7 +79,7 @@ func StartVisualPipeWireEncode(ctx context.Context, pipewireFD int, nodeID uint3
 			"queue max-size-buffers=1 leaky=downstream ! "+
 			"videorate drop-only=true ! video/x-raw,max-framerate=30/1 ! "+
 			"videoconvert ! video/x-raw,format=I420 ! "+
-			"x264enc tune=zerolatency speed-preset=ultrafast key-int-max=30 bitrate=%d sliced-threads=false ! "+
+			"x264enc tune=zerolatency speed-preset=superfast key-int-max=30 bitrate=%d sliced-threads=false ! "+
 			"h264parse config-interval=1 ! "+
 			"avdec_h264 ! videoconvert ! autovideosink sync=false",
 		nodeID, bitrate,
