@@ -67,8 +67,7 @@ class VideoDecoder(private val surface: Surface, private val width: Int, private
     private var startTimeUs = 0L
 
     fun queueNal(nal: ByteArray) {
-        // Reduzido o limite de 30 para 5 para evitar que acumule 1 segundo de delay
-        if (nalQueue.size > 5) {
+        if (nalQueue.size > 30) {
             nalQueue.poll()
         }
         nalQueue.offer(nal)
