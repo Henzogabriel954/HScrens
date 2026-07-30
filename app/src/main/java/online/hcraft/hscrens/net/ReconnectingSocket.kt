@@ -23,6 +23,8 @@ class ReconnectingSocket(
                     val socket = Socket()
                     currentSocket = socket
                     socket.tcpNoDelay = true
+                    socket.receiveBufferSize = 65536
+                    socket.sendBufferSize = 65536
                     socket.connect(InetSocketAddress(host, port), 2000)
                     connected = true
                     backoffMs = 1000L
